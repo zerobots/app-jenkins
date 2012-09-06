@@ -1,5 +1,13 @@
 ---
 - hosts: 127.0.0.1
+
+  vars:
+    ruby_version: 1.9.3-p194
+    rbenv_home: /usr/local/rbenv
+    rbenv_env: RBENV_ROOT=$rbenv_home PATH=$rbenv_home/shims:$rbenv_home/bin:$PATH
+    rbenv_cmd: $rbenv_env rbenv
+    app_env: RBENV_ROOT=$rbenv_home PATH=$app_home/app/bin:$rbenv_home/shims:$rbenv_home/bin:$PATH
+
   tasks:
   - name: Get Jenkins repo
     action: get_url url=http://pkg.jenkins-ci.org/redhat/jenkins.repo dest=/etc/yum.repos.d/jenkins.repo
@@ -12,6 +20,9 @@
 
   - name: Install Jenkins Git plugin
     action: get_url url=http://updates.jenkins-ci.org/latest/git.hpi dest=/var/lib/jenkins/plugins
+
+  # Install ruby dependencies so this agent can build rails
+  - include: capabilities/ruby-1.9.3.yml
 
   - name: Start Jenkins service
     action: service name=jenkins state=started
