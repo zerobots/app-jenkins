@@ -10,6 +10,9 @@
   - name: Install Jenkins
     action: yum name=jenkins
 
+  - name: Install Jenkins Git plugin
+    action: get_url url=http://updates.jenkins-ci.org/latest/git.hpi dest=/var/lib/jenkins/plugins
+
   - name: Start Jenkins service
     action: service name=jenkins state=started
 
