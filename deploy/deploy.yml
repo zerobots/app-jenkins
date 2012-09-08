@@ -19,7 +19,7 @@
     action: yum name=jenkins
 
   - name: Install Jenkins Git plugin
-    action: get_url url=http://updates.jenkins-ci.org/latest/git.hpi dest=/var/lib/jenkins/plugins
+    action: get_url url=http://updates.jenkins-ci.org/latest/git.hpi dest=/var/lib/jenkins/plugins/git.hpi owner=jenkins group=jenkins
 
   # Install ruby dependencies so this agent can build rails
   - include: capabilities/ruby-1.9.3/ruby-1.9.3.yml
