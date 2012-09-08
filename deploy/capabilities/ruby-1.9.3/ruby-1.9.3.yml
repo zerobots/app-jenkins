@@ -18,7 +18,7 @@
     action: git repo=git://github.com/sstephenson/ruby-build.git dest=$rbenv_home/plugins/ruby-build
 
   - name: "Set rbenv environment"
-    action: template src=rbenv.sh dest=/etc/profile.d/rbenv.sh
+    action: template src=capabilities/ruby-1.9.3/rbenv.sh dest=/etc/profile.d/rbenv.sh
 
   - name: "Install ruby"
     action: shell CONFIGURE_OPTS=--disable-install-doc $rbenv_cmd install $ruby_version creates=$rbenv_home/versions/$ruby_version

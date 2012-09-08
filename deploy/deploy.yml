@@ -22,7 +22,7 @@
     action: get_url url=http://updates.jenkins-ci.org/latest/git.hpi dest=/var/lib/jenkins/plugins
 
   # Install ruby dependencies so this agent can build rails
-  - include: capabilities/ruby-1.9.3.yml
+  - include: capabilities/ruby-1.9.3/ruby-1.9.3.yml
 
   - name: Start Jenkins service
     action: service name=jenkins state=started
