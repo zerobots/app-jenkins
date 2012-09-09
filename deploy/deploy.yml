@@ -9,6 +9,9 @@
     rbenv_cmd: $rbenv_env rbenv
     app_env: RBENV_ROOT=$rbenv_home PATH=$app_home/app/bin:$rbenv_home/shims:$rbenv_home/bin:$PATH
 
+  vars_files:
+    - env.yaml
+
   tasks:
   - name: Get Jenkins repo
     action: get_url url=http://pkg.jenkins-ci.org/redhat/jenkins.repo dest=/etc/yum.repos.d/jenkins.repo
