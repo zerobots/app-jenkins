@@ -29,11 +29,17 @@
   - name: "Set global ruby"
     action: shell $rbenv_cmd global $ruby_version
 
+  - name: "Wait for global ruby to be ready"
+    action: command sleep 3
+
   - name: "Install bundler"
     action: shell $rbenv_env gem install bundler --no-rdoc --no-ri
 
   - name: "Rehash rbenv"
     action: shell $rbenv_cmd rehash
+
+  - name: "Change ownership of rbenv to jenkins, so jenkins can run bundler and install gems"
+    action: command chown -R jenkins:jenkins /usr/local/rbenv
 
   - name: "Install app dependencies"
     action: yum name=sqlite-devel
