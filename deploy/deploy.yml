@@ -29,6 +29,8 @@
 
   # Install ruby dependencies so this agent can build rails
   - include: capabilities/ruby-1.9.3/ruby-1.9.3.yml
+  # Install Java dependencies so this agent can build Java
+  - include: capabilities/java-6/java-6.yml
 
   - name: Start Jenkins service
     action: service name=jenkins state=started

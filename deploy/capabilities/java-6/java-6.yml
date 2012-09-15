@@ -1,0 +1,15 @@
+---
+  - name: "Install JDK 6"
+    action: yum name=${item}
+    with_items:
+      - java-1.6.0-openjdk
+      - java-1.6.0-openjdk-devel
+
+  - name: "Download Maven 3"
+    action: get_url url=http://www.us.apache.org/dist/maven/maven-3/3.0.4/binaries/apache-maven-3.0.4-bin.tar.gz dest=/usr/local/apache-maven-3.0.4-bin.tar.gz
+
+  - name: "Unzip Maven 3"
+    action: command tar -C /usr/local -xvf /usr/local/apache-maven-3.0.4-bin.tar.gz
+
+  - name: "Create symlink"
+    action: file state=link dest=/usr/local/bin/mvn src=/usr/local/apache-maven-3.0.4/bin/mvn mode=0755
