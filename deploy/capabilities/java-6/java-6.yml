@@ -12,4 +12,4 @@
     action: command tar -C /usr/local -xvf /usr/local/apache-maven-3.0.4-bin.tar.gz
 
   - name: "Create symlink"
-    action: file state=link dest=/usr/local/bin/mvn src=/usr/local/apache-maven-3.0.4/bin/mvn mode=0755
+    action: file state=link dest=/usr/bin/mvn src=/usr/local/apache-maven-3.0.4/bin/mvn mode=0755
