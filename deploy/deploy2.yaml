@@ -1,0 +1,45 @@
+---
+- hosts: 127.0.0.1
+
+  vars:
+    ruby_version: 1.9.3-p194
+    rbenv_home: /usr/local/rbenv
+    rbenv_env: RBENV_ROOT=$rbenv_home PATH=$rbenv_home/shims:$rbenv_home/bin:$PATH
+    rbenv_cmd: $rbenv_env rbenv
+    app_env: RBENV_ROOT=$rbenv_home PATH=$app_home/app/bin:$rbenv_home/shims:$rbenv_home/bin:$PATH
+
+  vars_files:
+    - env.yaml
+
+  tasks:
+  - name: Get Jenkins repo
+    action: get_url url=http://pkg.jenkins-ci.org/redhat/jenkins.repo dest=/etc/yum.repos.d/jenkins.repo
+
+  - name: Import Jenkins repo key
+    action: command rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
+
+  - name: Install Jenkins
+    action: yum name=jenkins
+
+  - name: Create Jenkins plugins dir
+    action: file dest=/var/lib/jenkins/plugins state=directory owner=jenkins group=jenkins
+
+  - name: Install Jenkins Git plugin
+    action: get_url url=http://updates.jenkins-ci.org/latest/git.hpi dest=/var/lib/jenkins/plugins/git.hpi owner=jenkins group=jenkins
+
+  # Install ruby dependencies so this agent can build rails
+  - include: capabilities/ruby-1.9.3/ruby-1.9.3.yml
+  # Install Java dependencies so this agent can build Java
+  - include: capabilities/java-6/java-6.yml
+
+  - name: Start Jenkins service
+    action: service name=jenkins state=started
+
+  - name: Install nginx
+    action: yum name=nginx
+
+  - name: Configure nginx
+    action: template src=nginx-default.conf dest=/etc/nginx/conf.d/default.conf
+
+  - name: Start nginx
+    action: service name=nginx state=started
