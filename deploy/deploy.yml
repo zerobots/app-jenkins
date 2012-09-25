@@ -25,7 +25,7 @@
     action: file dest=/var/lib/jenkins/plugins state=directory owner=jenkins group=jenkins
 
   - name: Install Jenkins Git plugin
-    action: get_url url=http://updates.jenkins-ci.org/latest/git.hpi dest=/var/lib/jenkins/plugins/git.hpi owner=jenkins group=jenkins
+    action: get_url url=http://mirrors.jenkins-ci.org/plugins/git/1.1.22/git.hpi dest=/var/lib/jenkins/plugins/git.hpi owner=jenkins group=jenkins
 
   # Install ruby dependencies so this agent can build rails
   - include: capabilities/ruby-1.9.3/ruby-1.9.3.yml
