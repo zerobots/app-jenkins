@@ -27,6 +27,9 @@
   - name: Install Jenkins Git plugin
     action: get_url url=http://mirrors.jenkins-ci.org/plugins/git/1.1.22/git.hpi dest=/var/lib/jenkins/plugins/git.hpi owner=jenkins group=jenkins
 
+  - name: Setup git email and username
+    action: template src=gitconfig dest=/home/jenkins/.gitconfig owner=jenkins
+
   # Install ruby dependencies so this agent can build rails
   - include: capabilities/ruby-1.9.3/ruby-1.9.3.yml
   # Install Java dependencies so this agent can build Java
